@@ -20,9 +20,9 @@ const ProductItem = () => {
         <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ maxWidth: 345, padding: 3 }}>
                 <CardMedia
-                sx={{ height: 140 }}
-                image="https://www.nintendo.co.kr/hardware/img/01-hero/local-hero__pic_oled.png"
-                title="green iguana"
+                    sx={{ height: 140 }}
+                    image="https://www.nintendo.co.kr/hardware/img/01-hero/local-hero__pic_oled.png"
+                    title="닌텐도 스위치"
                 />
                 <CardContent sx={{ padding: 0 }}>
                 <Typography gutterBottom variant="h5" component="div">
