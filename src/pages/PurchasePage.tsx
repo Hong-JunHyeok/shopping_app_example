@@ -19,9 +19,9 @@ const PurchasePage = () => {
                 <Typography variant="h6">닌텐도 스위치</Typography>
                 </CardContent>
             </Card>
+            
+            <PurchaseForm />          
           </Grid>
-          
-          <PurchaseForm />          
         </Grid>
       </Container>
     )
