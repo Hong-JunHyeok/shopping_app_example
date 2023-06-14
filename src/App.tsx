@@ -2,15 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Layout } from './components/shared';
 
-import CartPage from './pages/CartPage';
-import MainPage from './pages/MainPage';
-import ProductPage from './pages/ProductPage';
+import { CartPage, ProductPage, HomePage } from './pages';
 
 function App() {
  return (
    <Layout>
     <Routes>
-      <Route index element={<MainPage />} />
+      <Route index element={<HomePage />} />
       <Route path="/:productId" element={<ProductPage />} />
       <Route path="cart" element={<CartPage />} />
     </Routes>

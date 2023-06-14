@@ -43,7 +43,7 @@ const ProductItem = () => {
     )
 }
 
-const MainPage = () => {
+const HomePage = () => {
     return (
         <>
         <Grid container spacing={3}>
@@ -55,7 +55,7 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+export default HomePage;
   
   
   
