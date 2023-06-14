@@ -1,4 +1,5 @@
-import { Button, Card, CardContent, CardMedia, Container, Grid, TextField, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+import { PurchaseForm } from "../components/purchase";
 
 const PurchasePage = () => {
     return (
@@ -19,23 +20,8 @@ const PurchasePage = () => {
                 </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12}>
-            <TextField label="이름" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="이메일" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="배송 주소" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="결제 정보" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" fullWidth>
-              구매 완료
-            </Button>
-          </Grid>
+          
+          <PurchaseForm />          
         </Grid>
       </Container>
     )
