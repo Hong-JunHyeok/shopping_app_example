@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Layout } from './components/shared';
 
+import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
 import ProductPage from './pages/ProductPage';
 
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route index element={<MainPage />} />
       <Route path="/:productId" element={<ProductPage />} />
+      <Route path="cart" element={<CartPage />} />
     </Routes>
    </Layout>
  );

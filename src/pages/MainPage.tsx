@@ -8,8 +8,14 @@ CardMedia,
 Grid, 
 Typography 
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const ProductItem = () => {
+    const navigate = useNavigate();
+
+    const handlePushCartPage = () => navigate('/cart');
+    const handlePushPurchasePage = () => navigate('/purchase')
+
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ maxWidth: 345, padding: 3 }}>
@@ -28,8 +34,8 @@ const ProductItem = () => {
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 3 }}>
                 <ButtonGroup variant="contained">
-                    <Button size="small">구매하기</Button>
-                    <Button size="small" variant="outlined">장바구니</Button>
+                    <Button size="small" onClick={handlePushPurchasePage}>구매하기</Button>
+                    <Button size="small" onClick={handlePushCartPage} variant="outlined">장바구니</Button>
                 </ButtonGroup>
                 </Box>
             </Card>
