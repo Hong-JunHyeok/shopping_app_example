@@ -13,12 +13,22 @@ import { useNavigate } from "react-router-dom";
 const ProductItem = () => {
     const navigate = useNavigate();
 
-    const handlePushCartPage = () => navigate('/cart');
-    const handlePushPurchasePage = () => navigate('/purchase')
+    const handlePushProductPage = () => navigate('/product');
+
+    // NOTE: 이벤트 전파에 대한 설명 필요
+    const handlePushCartPage = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        navigate('/cart');
+    };
+    
+    const handlePushPurchasePage = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        navigate('/purchase');
+    };
 
     return (
         <Grid item xs={12} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345, padding: 3 }}>
+            <Card sx={{ maxWidth: 345, padding: 3 }} onClick={handlePushProductPage}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image="https://www.nintendo.co.kr/hardware/img/01-hero/local-hero__pic_oled.png"
