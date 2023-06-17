@@ -11,6 +11,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
     const navigate = useNavigate();
 
+    const handlePushMainPage = () => navigate('/');
     const handlePushCartPage = () => navigate('/cart');
 
     return (
@@ -18,8 +19,11 @@ const Layout = ({ children }: Props) => {
             <CssBaseline />
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" sx={{mb: 4}}>
-                <Toolbar>
-                    <Typography variant="h1" sx={{ flexGrow: 1, fontSize: 26, fontWeight: 'bold' }}>
+                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography 
+                        variant="h1" sx={{ fontSize: 26, fontWeight: 'bold', cursor: 'pointer' }}
+                        onClick={handlePushMainPage}
+                    >
                         온라인 쇼핑몰
                     </Typography>
                     <Button color="inherit" onClick={handlePushCartPage}>
