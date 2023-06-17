@@ -15,7 +15,7 @@ root.render(
     <BrowserRouter>
       <ErrorBoundary FallbackComponent={ErrorPage}>
         <Suspense fallback={<LoadingPage />}>
-          <App />
+          <App /> 
         </Suspense>
       </ErrorBoundary>
     </BrowserRouter>

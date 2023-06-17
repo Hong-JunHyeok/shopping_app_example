@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../hooks";
 import { ProductType } from "../types";
 import { getProduct } from "../utils/apis";
+import createImageURL from "../utils/createImageURL";
 
 type ParamsType = {
     productId: string;
@@ -58,17 +59,17 @@ const ProductPage = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                 {product?.thumbnail && (
                     <img 
-                        src={product?.thumbnail} 
+                        src={createImageURL(product?.thumbnail)}
                         alt={product?.name} 
                         style={{ width: '100%', maxWidth: 400 }} 
                     />
                 )}
                 </Box>
-                <Typography variant="h4" sx={{ marginBottom: 2 }}>
+                <Typography variant="h4" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
                     {product?.name}
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: 4 }}>
-                    {product?.price}
+                    {product?.price.toLocaleString('KO-kr')}원
                 </Typography>
                 <Typography variant="body1" sx={{ marginBottom: 4 }}>
                     {product?.explanation}
@@ -90,7 +91,6 @@ const ProductPage = () => {
             >
             <DialogTitle id="responsive-dialog-title">
                 장바구니에 성공적으로 추가하였습니다.
-                
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>

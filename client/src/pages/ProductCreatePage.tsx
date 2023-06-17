@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { ThumbnailUploader } from "../components/create";
 import { createProduct, modifyThumbnail } from "../utils/apis";
+import { useNavigate } from "react-router-dom";
 
 
 const ProductCreatePage = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [explanation, setExplanation] = useState("");
@@ -26,6 +29,10 @@ const ProductCreatePage = () => {
     setThumbnail(null);
   };
 
+  const handlePushProductPage = (productId: string) => () => {
+    navigate(`/product/${productId}`);
+  }
+
   const handleCreateProduct = async (event: React.FormEvent) => {
     event.preventDefault();
     const { data: { product } } = await createProduct({
@@ -35,14 +42,10 @@ const ProductCreatePage = () => {
     })
 
     if (thumbnail) {
-      const productWithThumbnail = await modifyThumbnail(product.id, thumbnail);
-
-      setProducts((prev) => [...prev, productWithThumbnail]);
-      return;
+      await modifyThumbnail(product.id, thumbnail);
     }
 
-    setProducts((prev) => [...prev, product]);
-    return;
+    handlePushProductPage(product.id);
   };
 
   return (

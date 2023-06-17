@@ -11,7 +11,7 @@ type Props = {
 }
 
 const CartItem = ({ cart }: Props) => {
-  const { changeCount } = useCart();
+  const { changeCount, clearProduct } = useCart();
   const handleIncreaseCount = () => changeCount(cart.id, 'increase');
   const handleDecreaseCount = () => changeCount(cart.id, 'decrease');
 
@@ -52,7 +52,7 @@ const CartItem = ({ cart }: Props) => {
           </Grid>
 
           <Grid item>
-            <IconButton>
+            <IconButton onClick={() => clearProduct(cart.id)}>
               <Delete />
             </IconButton>
           </Grid>

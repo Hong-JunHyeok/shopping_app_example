@@ -32,7 +32,7 @@ export const createProduct = async (newProduct: Omit<ProductType, "id" | "thumbn
   }
 };
 
-export const modifyThumbnail = async (productId: string, thumbnail: File) => {
+export const modifyThumbnail = async (productId: string, thumbnail: File): ReturnType<{ product: ProductType }> => {
   try {
     const formData = new FormData();
     formData.append("thumbnail", thumbnail);

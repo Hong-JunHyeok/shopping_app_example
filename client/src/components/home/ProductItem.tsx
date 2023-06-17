@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { 
     Box, 
     Button, 
-    ButtonGroup, 
     Card, 
     CardContent, 
     CardMedia, 
@@ -23,12 +22,7 @@ const ProductItem = ({
 
     const handlePushProductPage = () => navigate(`/product/${product.id}`);
 
-    // NOTE: 이벤트 전파에 대한 설명 필요
-    const handlePushCartPage = (event: React.MouseEvent) => {
-        event.stopPropagation();
-        navigate('/cart');
-    };
-    
+    // NOTE: 이벤트 전파에 대한 설명 필
     const handlePushPurchasePage = (event: React.MouseEvent) => {
         event.stopPropagation();
         navigate('/purchase');
@@ -48,15 +42,22 @@ const ProductItem = ({
                 <Typography gutterBottom variant="h5" component="div">
                     {product.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography 
+                    variant="body2" 
+                    color="text.secondary" 
+                    sx={{ 
+                        height: 30,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                    }}
+                >
                     {product.explanation}
                 </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 3 }}>
-                <ButtonGroup variant="contained">
-                    <Button size="small" onClick={handlePushPurchasePage}>구매하기</Button>
-                    <Button size="small" onClick={handlePushCartPage} variant="outlined">장바구니</Button>
-                </ButtonGroup>
+
+                <Button size="small" onClick={handlePushPurchasePage}>구매하기</Button>
                 </Box>
             </Card>
         </Grid>

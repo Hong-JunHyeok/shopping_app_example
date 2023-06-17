@@ -80,10 +80,21 @@ const useCart = () => {
       }
     };
 
+    const clearProduct = (productId: string) => {
+      setCookies(
+        COOKIE_KEY,
+        [...productIds].filter((id) => id !== productId),
+        {
+          path: '/',
+        }
+      );
+    }
+
     return {
       carts, 
       addCarts,
-      changeCount
+      changeCount,
+      clearProduct
     }
 }
 
