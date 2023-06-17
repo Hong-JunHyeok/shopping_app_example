@@ -89,23 +89,23 @@ const ProductPage = () => {
                 onClose={handleCloseModal}
                 aria-labelledby="responsive-dialog-title"
             >
-            <DialogTitle id="responsive-dialog-title">
-                장바구니에 성공적으로 추가하였습니다.
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    장바구니 페이지로 이동하시겠습니까?
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseModal}>
-                    아니요
-                </Button>
-                <Button onClick={handlePushCartPage} autoFocus>
-                    네
-                </Button>
-            </DialogActions>
-        </Dialog>
+                <DialogTitle id="responsive-dialog-title">
+                    장바구니에 성공적으로 추가하였습니다.
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        장바구니 페이지로 이동하시겠습니까?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseModal}>
+                        아니요
+                    </Button>
+                    <Button onClick={handlePushCartPage} autoFocus>
+                        네
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 };

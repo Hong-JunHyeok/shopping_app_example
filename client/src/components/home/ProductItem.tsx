@@ -25,7 +25,7 @@ const ProductItem = ({
     // NOTE: 이벤트 전파에 대한 설명 필
     const handlePushPurchasePage = (event: React.MouseEvent) => {
         event.stopPropagation();
-        navigate('/purchase');
+        navigate(`/purchase/${product.id}`);
     };
 
     return (
@@ -57,7 +57,13 @@ const ProductItem = ({
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 3 }}>
 
-                <Button size="small" onClick={handlePushPurchasePage}>구매하기</Button>
+                <Button 
+                    size="small" 
+                    onClick={handlePushPurchasePage}
+                    variant="contained"
+                >
+                    구매하기
+                </Button>
                 </Box>
             </Card>
         </Grid>
