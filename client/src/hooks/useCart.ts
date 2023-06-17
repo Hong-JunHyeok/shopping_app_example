@@ -50,11 +50,15 @@ const useCart = () => {
     const changeCount = (productId: string, mode: 'increase' | 'decrease') => {
       const index = productIds.lastIndexOf(productId);  
       if (index === -1) { return; }
-    
 
       if (mode === 'decrease') {
         const tempArr = [...productIds];
         tempArr.splice(index, 1)
+        
+        // 0이하 방어코드
+        if (!tempArr.includes(productId)) {
+          return;
+        }
 
         setCookies(
           COOKIE_KEY,
