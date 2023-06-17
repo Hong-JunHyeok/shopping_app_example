@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../hooks";
 import { ProductType } from "../types";
-import { getProduct } from "../utils/apis";
+import { deleteProduct, getProduct } from "../utils/apis";
 import createImageURL from "../utils/createImageURL";
+
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
 
 type ParamsType = {
     productId: string;
@@ -25,6 +28,12 @@ const ProductPage = () => {
         if (params.productId) {
             const { data } = await getProduct(params.productId);
             setProduct(data.product);
+        }
+    }
+
+    const handleDeleteProduct = async () => {
+        if (params.productId) {
+            deleteProduct(params.productId);
         }
     }
 
@@ -65,16 +74,39 @@ const ProductPage = () => {
                     />
                 )}
                 </Box>
-                <Typography variant="h4" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                    {product?.name}
-                </Typography>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 2
+                }}>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                        {product?.name}
+                    </Typography>
+                    <ButtonGroup orientation="horizontal">
+                        <Button
+                            variant="text" 
+                            onClick={handleAddCard} 
+                            color="error"
+                        >
+                            <Delete />
+                        </Button>
+                        <Button 
+                            variant="text"  
+                            onClick={handlePushPurchasePage}
+                            color="info"
+                        >
+                            <Edit />
+                        </Button>
+                    </ButtonGroup>
+                </Box>
                 <Typography variant="h6" sx={{ marginBottom: 4 }}>
                     {product?.price.toLocaleString('KO-kr')}원
                 </Typography>
                 <Typography variant="body1" sx={{ marginBottom: 4 }}>
                     {product?.explanation}
                 </Typography>
-
+                
                 <ButtonGroup orientation="vertical" fullWidth>
                     <Button variant="outlined" onClick={handleAddCard}>
                         장바구니 담기
@@ -84,6 +116,8 @@ const ProductPage = () => {
                     </Button>
                 </ButtonGroup>
             </Container>
+
+
             <Dialog
                 open={isModalOpen}
                 onClose={handleCloseModal}
