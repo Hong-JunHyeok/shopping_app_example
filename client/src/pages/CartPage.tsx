@@ -11,7 +11,7 @@ const CartPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const totalPrice = carts.reduce((prev, cur) => (prev + cur.price) * cur.count, 0);
+  const totalPrice = carts.reduce((prev, cur) => prev + (cur.price * cur.count) , 0);
 
   const handlePurchaseProduct = (event: React.FormEvent) => {
     event.preventDefault();
