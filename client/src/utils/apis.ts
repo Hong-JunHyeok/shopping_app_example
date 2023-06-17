@@ -23,7 +23,7 @@ export const getProduct = async (id: string): ReturnType<{ product: ProductType 
   }
 }
 
-export const createProduct = async (newProduct: Omit<ProductType, "id">) => {
+export const createProduct = async (newProduct: Omit<ProductType, "id" | "thumbnail">): ReturnType<{ product: ProductType }> => {
   try {
     const response = await axios.post("/product", newProduct);
     return response

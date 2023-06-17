@@ -33,13 +33,13 @@ const CartPage = () => {
               <Box sx={{ position: 'sticky', top: 20 }}>
                 <Card sx={{ padding: 2 }}>
                     <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>
-                      총 상품 가격: {totalPrice}원
+                      총 상품 가격: {totalPrice.toLocaleString('ko-KR')}원
                     </Typography>
                     <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>
                       배송비: 평생 무료
                     </Typography>
                     <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                      총 결제 금액: {totalPrice}원
+                      총 결제 금액: {totalPrice.toLocaleString('ko-KR')}원
                     </Typography>
                     <Button variant="contained" fullWidth>
                         결제하기

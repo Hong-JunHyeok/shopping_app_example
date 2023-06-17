@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Button, Container, Fab, Toolbar, Typography } from "@mui/material"
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Add } from "@mui/icons-material";
 
 type Props = {
     children: React.ReactNode;
@@ -13,6 +14,7 @@ const Layout = ({ children }: Props) => {
 
     const handlePushMainPage = () => navigate('/');
     const handlePushCartPage = () => navigate('/cart');
+    const handlePushCreatePage = () => navigate('/create');
 
     return (
         <>
@@ -35,6 +37,12 @@ const Layout = ({ children }: Props) => {
                 <Container fixed>
                     {children}
                 </Container>
+            </Box>
+
+            <Box sx={{ position: "fixed", bottom: "16px", right: "16px" }}>
+                <Fab color="primary" onClick={handlePushCreatePage}>
+                    <Add /> 
+                </Fab>
             </Box>
         </>
     )
