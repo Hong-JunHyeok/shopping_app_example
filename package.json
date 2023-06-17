@@ -10,5 +10,8 @@
     "run:client": "cd client && yarn install && yarn start",
     "run:server": "cd server && yarn install && yarn start",
     "run:both": "yarn install && concurrently \"yarn run:server\" \"yarn run:client\""
+  },
+  "dependencies": {
+    "react-cookie": "^4.1.1"
   }
 }
