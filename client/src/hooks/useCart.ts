@@ -15,10 +15,10 @@ const useCart = () => {
     const productIds = useMemo(() => (cookies[COOKIE_KEY] as string[]) ?? [], [cookies]);;
 
     const addCarts = (id: string) => {
-      const nextCarts = [...productIds, id];
+      const nextCartIds = [...productIds, id];
         setCookies(
           COOKIE_KEY,
-          nextCarts,
+          nextCartIds,
           {
             path: '/',
           }
@@ -47,9 +47,39 @@ const useCart = () => {
       }
     }, [productIds]);
    
+    const changeCount = (productId: string, mode: 'increase' | 'decrease') => {
+      const index = productIds.lastIndexOf(productId);  
+      if (index === -1) { return; }
+    
+
+      if (mode === 'decrease') {
+        const tempArr = [...productIds];
+        tempArr.splice(index, 1)
+
+        setCookies(
+          COOKIE_KEY,
+          tempArr,
+          {
+            path: '/',
+          }
+        );
+      }
+
+      if (mode === 'increase') {
+        setCookies(
+          COOKIE_KEY,
+          [...productIds, productId],
+          {
+            path: '/',
+          }
+        );
+      }
+    };
+
     return {
-        carts, 
-        addCarts
+      carts, 
+      addCarts,
+      changeCount
     }
 }
 

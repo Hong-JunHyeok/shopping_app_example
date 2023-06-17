@@ -2,6 +2,7 @@ import { Card, CardContent, CardMedia, Grid, IconButton, Typography } from "@mui
 import { Add, Delete, Remove } from "@mui/icons-material";
 
 import type { ProductType } from "../../types";
+import { useCart } from "../../hooks";
 
 
 type Props = {
@@ -9,6 +10,10 @@ type Props = {
 }
 
 const CartItem = ({ cart }: Props) => {
+  const { changeCount } = useCart();
+  const handleIncreaseCount = () => changeCount(cart.id, 'increase');
+  const handleDecreaseCount = () => changeCount(cart.id, 'decrease');
+
   return (
     <Card sx={{ display: 'flex', marginBottom: 2 }}>
       {cart.thumbnail && (
@@ -25,11 +30,11 @@ const CartItem = ({ cart }: Props) => {
           justifyContent='space-between'
         >
           <Grid item>
-            <IconButton>
-              <Remove />
+            <IconButton onClick={handleDecreaseCount}>
+              <Remove/>
             </IconButton>
             {cart.count}
-            <IconButton>
+            <IconButton onClick={handleIncreaseCount}>
               <Add />
             </IconButton>
           </Grid>
