@@ -90,11 +90,22 @@ const useCart = () => {
       );
     }
 
+    const clearAllProduct = () => {
+      setCookies(
+        COOKIE_KEY,
+        [],
+        {
+          path: '/',
+        }
+      );
+    }
+
     return {
       carts, 
       addCarts,
       changeCount,
-      clearProduct
+      clearProduct,
+      clearAllProduct
     }
 }
 

@@ -12,12 +12,10 @@ import { ProductType } from "../../types";
 
 type Props = {
     product: ProductType;
-}
+};
 
 
-const ProductItem = ({
-    product
-}: Props) => {
+const ProductItem = ({ product }: Props) => {
     const navigate = useNavigate();
 
     const handlePushProductPage = () => navigate(`/product/${product.id}`);
