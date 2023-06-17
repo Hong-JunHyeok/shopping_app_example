@@ -1,21 +1,47 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, IconButton, Typography } from "@mui/material";
+import { Add, Delete, Remove } from "@mui/icons-material";
 
-const CartItem = () => {
-    return (
-      <Card sx={{ display: 'flex', marginBottom: 2 }}>
+import type { ProductType } from "../../types";
+
+
+type Props = {
+  cart: ProductType & { count: number }
+}
+
+const CartItem = ({ cart }: Props) => {
+  return (
+    <Card sx={{ display: 'flex', marginBottom: 2 }}>
+      {cart.thumbnail && (
         <CardMedia
-          sx={{ width: 100, height: 100, marginRight: 2 }}
-          image="https://www.nintendo.co.kr/hardware/img/01-hero/local-hero__pic_oled.png"
-          title="Product"
+          sx={{ width: 100 }}
+          image={cart.thumbnail}
+          title={cart.name}
         />
-        <CardContent>
-          <Typography variant="h6">닌텐도 스위치</Typography>
-          <Typography variant="body2" color="text.secondary">
-            구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.
-          </Typography>
-        </CardContent>
-      </Card>
-    );
-};
+      )}
+      <CardContent sx={{ width: '100%' }}>
+        <Typography variant="h6">{cart.name}</Typography>
+        <Grid 
+          container
+          justifyContent='space-between'
+        >
+          <Grid item>
+            <IconButton>
+              <Remove />
+            </IconButton>
+            {cart.count}
+            <IconButton>
+              <Add />
+            </IconButton>
+          </Grid>
 
+          <Grid item>
+            <IconButton>
+              <Delete />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  );
+};
 export default CartItem;
