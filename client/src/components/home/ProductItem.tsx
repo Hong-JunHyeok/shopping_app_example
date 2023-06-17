@@ -1,20 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import { 
-Box, 
-Button, 
-ButtonGroup, 
-Card, 
-CardContent, 
-CardMedia, 
-Grid, 
-Typography 
+    Box, 
+    Button, 
+    ButtonGroup, 
+    Card, 
+    CardContent, 
+    CardMedia, 
+    Grid, 
+    Typography 
 } from "@mui/material";
-    
+import { ProductType } from "../../types";
 
-const ProductItem = () => {
+type Props = {
+    product: ProductType;
+}
+
+
+const ProductItem = ({
+    product
+}: Props) => {
     const navigate = useNavigate();
 
-    const handlePushProductPage = () => navigate('/product');
+    const handlePushProductPage = () => navigate(`/product/${product.id}`);
 
     // NOTE: 이벤트 전파에 대한 설명 필요
     const handlePushCartPage = (event: React.MouseEvent) => {
@@ -30,17 +37,19 @@ const ProductItem = () => {
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Card sx={{ maxWidth: 345, padding: 3 }} onClick={handlePushProductPage}>
-                <CardMedia
-                    sx={{ height: 140 }}
-                    image="https://www.nintendo.co.kr/hardware/img/01-hero/local-hero__pic_oled.png"
-                    title="닌텐도 스위치"
-                />
+                {product.thumbnail && (
+                    <CardMedia
+                        sx={{ height: 140 }}
+                        image={product.thumbnail}
+                        title={product.name}
+                    />
+                )}
                 <CardContent sx={{ padding: 0 }}>
                 <Typography gutterBottom variant="h5" component="div">
-                    닌텐도 스위치
+                    {product.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.
+                    {product.explanation}
                 </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 3 }}>
