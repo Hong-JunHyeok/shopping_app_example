@@ -1,6 +1,6 @@
 import { Button, CardMedia, Grid, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 type ThumbnailUploaderProps = {
   value: File | null;
@@ -11,9 +11,15 @@ const ThumbnailUploader = ({
   value,
   onChange,
 }: ThumbnailUploaderProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     onChange(file || null);
+  };
+
+  const handleClick = () => {
+    inputRef.current?.click();
   };
 
   const tempImageURL = useMemo(() => {
@@ -29,6 +35,7 @@ const ThumbnailUploader = ({
       </Grid>
       <Grid item xs={12}>
         <input
+          ref={inputRef}
           type="file"
           accept="image/*"
           onChange={handleImageChange}
@@ -58,6 +65,7 @@ const ThumbnailUploader = ({
             fullWidth
             variant="outlined"
             startIcon={<CloudUploadIcon />}
+            onClick={handleClick}
           >
             이미지 선택
           </Button>
