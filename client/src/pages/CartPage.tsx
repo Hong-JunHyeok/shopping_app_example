@@ -35,12 +35,18 @@ const CartPage = () => {
             >
               장바구니
             </Typography>
-            {carts.map((cart) => (
-              <CartItem 
-                key={cart.id} 
-                cart={cart}
-              />
-            ))}
+            {carts.length === 0 ? (
+              <Typography variant="body1">
+                장바구니에 담긴 상품이 없습니다.
+              </Typography>
+            ) : (
+              carts.map((cart) => (
+                <CartItem 
+                  key={cart.id} 
+                  cart={cart}
+                />
+              ))
+            )}
           </Grid>
 
           <Grid item xs={12} sm={4}>
