@@ -17,12 +17,10 @@ const ProductPage = () => {
     const params = useParams<ParamsType>();
     const navigate = useNavigate();
     const { addCarts } = useCart();
-    
+
     const [product, setProduct] = useState<ProductType | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleCloseModal = () => setIsModalOpen(false);
-    const handleOpenModal = () => setIsModalOpen(true);
+    const [isDeleteModal, setIsDeleteModal] = useState(false);
 
     const handleFetchProduct = async () => {
         if (params.productId) {
@@ -33,14 +31,15 @@ const ProductPage = () => {
 
     const handleDeleteProduct = async () => {
         if (params.productId) {
-            deleteProduct(params.productId);
+            await deleteProduct(params.productId);
+            navigate('/')
         }
     }
 
     const handleAddCard = () => {
         if (params.productId) {
             addCarts(params.productId);
-            handleOpenModal();
+            setIsModalOpen(true);
         }
     }
 
@@ -86,14 +85,14 @@ const ProductPage = () => {
                     <ButtonGroup orientation="horizontal">
                         <Button
                             variant="text" 
-                            onClick={handleAddCard} 
+                            onClick={() => setIsDeleteModal(true)} 
                             color="error"
                         >
                             <Delete />
                         </Button>
                         <Button 
                             variant="text"  
-                            onClick={handlePushPurchasePage}
+                            // onClick={handlePushPurchasePage}
                             color="info"
                         >
                             <Edit />
@@ -117,10 +116,32 @@ const ProductPage = () => {
                 </ButtonGroup>
             </Container>
 
+            <Dialog
+                open={isDeleteModal}
+                onClose={() => setIsDeleteModal(false)}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    상품을 정말로 삭제하시겠습니까?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        이 작업은 되돌릴 수 없습니다.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setIsDeleteModal(false)}>
+                        아니요
+                    </Button>
+                    <Button onClick={handleDeleteProduct} autoFocus>
+                        네
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             <Dialog
                 open={isModalOpen}
-                onClose={handleCloseModal}
+                onClose={() => setIsModalOpen(false)}
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
@@ -132,7 +153,7 @@ const ProductPage = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseModal}>
+                    <Button onClick={() => setIsModalOpen(false)}>
                         아니요
                     </Button>
                     <Button onClick={handlePushCartPage} autoFocus>
