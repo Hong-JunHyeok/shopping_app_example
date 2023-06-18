@@ -1,21 +1,15 @@
-import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
+import { Button, CardMedia, Grid, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useMemo } from "react";
 
 type ThumbnailUploaderProps = {
   value: File | null;
   onChange: (file: File | null) => void;
-  onClickThumbnail: () => void;
-  onUpload: () => void;
-  onError: () => void;
 };
 
 const ThumbnailUploader = ({
   value,
   onChange,
-  onClickThumbnail,
-  onUpload,
-  onError,
 }: ThumbnailUploaderProps) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

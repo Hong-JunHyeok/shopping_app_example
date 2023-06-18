@@ -121,9 +121,6 @@ const ProductCreatePage = () => {
           <ThumbnailUploader
             value={thumbnail}
             onChange={(file) => setThumbnail(file)}
-            onClickThumbnail={handleClearThumbnail}
-            onUpload={() => console.log("성공")}
-            onError={() => console.error("에러")}
           />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{
             marginTop: 6
