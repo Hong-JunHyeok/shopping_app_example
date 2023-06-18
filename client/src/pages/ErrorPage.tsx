@@ -1,4 +1,3 @@
-import React from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardContent, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 

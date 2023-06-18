@@ -24,6 +24,8 @@ const PurchasePage = () => {
 
   useEffect(() => {
     handleFetchProduct();
+    //NOTE: 해당 라인에 대한 설명 필요
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!params.productId) {
