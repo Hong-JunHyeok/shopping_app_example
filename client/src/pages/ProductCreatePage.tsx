@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, TextField, Typography } from "@mui/material";
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Typography } from "@mui/material";
 import { ThumbnailUploader } from "../components/create";
 import { createProduct, modifyThumbnail } from "../utils/apis";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ const ProductCreatePage = () => {
   const [price, setPrice] = useState(0);
   const [explanation, setExplanation] = useState("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createdProductId, setCreatedProductId] = useState("");
 
   const handleNameChange = (event: any) => {
     setName(event.target.value);
@@ -29,8 +31,9 @@ const ProductCreatePage = () => {
     setThumbnail(null);
   };
 
-  const handlePushProductPage = (productId: string) => () => {
-    navigate(`/product/${productId}`);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    navigate(`/product/${createdProductId}`);
   }
 
   const handleCreateProduct = async (event: React.FormEvent) => {
@@ -45,7 +48,8 @@ const ProductCreatePage = () => {
       await modifyThumbnail(product.id, thumbnail);
     }
 
-    handlePushProductPage(product.id);
+    setCreatedProductId(product.id);
+    setIsModalOpen(true);
   };
 
   return (
@@ -100,6 +104,25 @@ const ProductCreatePage = () => {
             </Button>
         </form>
         </Container>
+
+        <Dialog
+          open={isModalOpen}
+          onClose={handleCloseModal}
+        >
+          <DialogTitle>
+              상품을 성공적으로 추가하였습니다.
+          </DialogTitle>
+          <DialogContent>
+              <DialogContentText>
+                  상품 페이지로 이동합니다.
+              </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+              <Button onClick={handleCloseModal} autoFocus>
+                  네
+              </Button>
+          </DialogActions>
+        </Dialog>
     </>
   );
 };
