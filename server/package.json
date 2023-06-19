@@ -16,10 +16,10 @@
     "@types/multer": "^1.4.7",
     "@types/uuid": "^8",
     "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
+    "@typescript-eslint/parser": "^5.59.11",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "latest",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
