@@ -7,5 +7,5 @@ const searchController = (req: Request, res: Response) => {
 };
 
 export default {
-  searchController,
+  searchController
 };

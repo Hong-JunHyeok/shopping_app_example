@@ -48,13 +48,13 @@ const ProductCreatePage = () => {
 
     let isValid = true;
 
-    if (name.length < 2 || name.length > 10) {
-      setNameError("상품 이름은 최소 2자 이상, 최대 10자 이하여야 합니다.");
+    if (name.length < 2 || name.length > 30) {
+      setNameError("상품 이름은 최소 2자 이상, 최대 30자 이하여야 합니다.");
       isValid = false;
     }
 
-    if (explanation.length < 1 || explanation.length > 100) {
-      setExplanationError("상품 설명은 최소 1자 이상, 최대 100자까지 입력할 수 있습니다.");
+    if (explanation.length < 1 || explanation.length > 500) {
+      setExplanationError("상품 설명은 최소 1자 이상, 최대 500자까지 입력할 수 있습니다.");
       isValid = false;
     }
 

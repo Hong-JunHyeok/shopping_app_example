@@ -2,11 +2,15 @@ import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import products, { deleteById, getById, ProductType } from "../model/products";
 
+const getProductIndexById = (productId: string): number => {
+  return products.findIndex((product) => product.id === productId);
+};
+
 const raedProductsController = (req: Request, res: Response) =>
   res.json({
     products,
     code: 200,
-    message: "상품 조회 성공",
+    message: "상품 조회 성공"
   });
 
 const raedProductController = (req: Request, res: Response) => {
@@ -15,68 +19,72 @@ const raedProductController = (req: Request, res: Response) => {
 
   if (!existProduct) {
     return res.json({
-      message: "존재하지 않는 상품입니다.",
+      message: "존재하지 않는 상품입니다."
     });
   }
 
   res.json({
     product: existProduct,
     code: 200,
-    message: "상품 조회에 성공하였습니다.",
+    message: "상품 조회에 성공하였습니다."
   });
 };
 
-const createProductController = (req: Request, res: Response) => {
+const createProductController = async (req: Request, res: Response) => {
   const productMeta = req.body as ProductType;
   const generatedId = uuidv4();
 
   const newProduct: ProductType = {
-    id: generatedId,
     ...productMeta,
+    id: generatedId,
   };
 
-  setTimeout(() => {
-    products.push(newProduct);
+  await new Promise<void>((resolve) => setTimeout(resolve, 1000));
 
-    return res.json({
-      code: 200,
-      message: "상품 등록에 성공하였습니다.",
-      location: `/product?id=${generatedId}`,
-      product: newProduct,
-    });
-  }, 1000);
+  products.push(newProduct);
+
+  return res.json({
+    code: 200,
+    message: "상품 등록에 성공하였습니다.",
+    location: `/product?id=${generatedId}`,
+    product: newProduct
+  });
 };
 
 const updateProductController = (req: Request, res: Response) => {
   const { productId } = req.params;
   const updateProductData = req.body;
 
-  const productIndex = products.findIndex(
-    (product) => product.id === productId
-  );
+  const productIndex = getProductIndexById(productId);
+
+  if (productIndex === -1) {
+    return res.json({
+      message: "존재하지 않는 상품입니다."
+    });
+  }
 
   products[productIndex] = {
     ...products[productIndex],
-    ...updateProductData,
+    ...updateProductData
   };
 
   return res.json({
     message: "상품 업데이트에 성공하였습니다.",
-    location: `/product?id=${productId}`,
+    location: `/product?id=${productId}`
   });
 };
 
-const deleteProductController = (req: Request, res: Response) => {
+const deleteProductController = async (req: Request, res: Response) => {
   const { productId } = req.params;
 
-  setTimeout(() => {
-    deleteById(productId);
+  await new Promise<void>((resolve) => setTimeout(resolve, 1000));
 
-    return res.json({
-      code: 200,
-      message: "상품이 삭제되었습니다.",
-    });
-  }, 1000);
+  deleteById(productId);
+
+  return res.json({
+    code: 200,
+    message: "상품이 삭제되었습니다."
+  });
 };
 
 const updateThumbnailController = (
@@ -86,25 +94,23 @@ const updateThumbnailController = (
 ) => {
   const { productId } = req.params;
 
-  const productIndex = products.findIndex(
-    (product) => product.id === productId
-  );
+  const productIndex = getProductIndexById(productId);
 
   if (productIndex === -1) {
     return res.json({
-      message: "존재하지 않는 상품입니다.",
+      message: "존재하지 않는 상품입니다."
     });
   }
 
   products[productIndex] = {
     ...products[productIndex],
-    thumbnail: `${req.file.path}`,
+    thumbnail: `${req?.file?.path}`
   };
 
   return res.json({
     code: 201,
     message: "상품 썹네일 업로드 성공",
-    product: products[productIndex],
+    product: products[productIndex]
   });
 };
 
@@ -114,5 +120,5 @@ export default {
   createProductController,
   updateProductController,
   deleteProductController,
-  updateThumbnailController,
+  updateThumbnailController
 };
