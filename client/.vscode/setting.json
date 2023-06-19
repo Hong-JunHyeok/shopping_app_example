@@ -1,0 +1,14 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.fixAll.eslint": false
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.iconTheme": "material-icon-theme"
+}
