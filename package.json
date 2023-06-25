@@ -1,5 +1,5 @@
 {
-  "name": "remake_shopping_app",
+  "name": "shopping_app_example",
   "version": "1.0.0",
   "description": "쇼핑앱의 루트 디렉토리",
   "license": "MIT",
@@ -10,8 +10,5 @@
     "run:client": "cd client && yarn install && yarn start",
     "run:server": "cd server && yarn install && yarn start",
     "run:both": "yarn install && concurrently \"yarn run:server\" \"yarn run:client\""
-  },
-  "dependencies": {
-    "react-cookie": "^4.1.1"
   }
 }
