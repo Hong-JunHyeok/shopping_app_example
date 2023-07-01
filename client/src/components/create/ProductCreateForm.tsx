@@ -1,55 +1,86 @@
 // ProductCreateForm.tsx
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { ProductType } from "../../types";
 
 const ProductCreateForm = () => {
- const [name, setName] = useState("");
- const [explanation, setExplanation] = useState("");
- const [price, setPrice] = useState(0);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [explanation, setExplanation] = useState("");
 
- const handleCreate = (newProduct: Omit<ProductType, "id">) => {
-   fetch("/product", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(newProduct),
-   })
-     .then((response) => response.json())
-     .then((data) => {
-       console.log(data);
-     });
- };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
 
- return (
-   <form
-     onSubmit={(event) => {
-       event.preventDefault();
-       handleCreate({
-         name,
-         explanation,
-         price,
-       });
-     }}
-   >
-     <input
-       onChange={(event) => setName(event.target.value)}
-       type="text"
-       placeholder="상품의 이름"
-     />
-     <input
-       onChange={(event) => setExplanation(event.target.value)}
-       type="text"
-       placeholder="상품 설명"
-     />
-     <input
-       onChange={(event) => setPrice(parseInt(event.target.value, 10))}
-       type="number"
-       placeholder="상품 가격"
-     />
-     <input type="submit" value="상품 만들기" />
-   </form>
- );
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(Number(event.target.value));
+  };
+
+  const handleExplanationChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setExplanation(event.target.value);
+  };
+
+  const handleCreate = (event: React.FormEvent) => {
+    event.preventDefault();
+    const newProduct: Omit<ProductType, "id"> = {
+      name,
+      explanation,
+      price,
+    };
+
+    fetch("/product", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  return (
+    <>
+      <Container maxWidth="sm">
+        <Typography variant="h4" align="center" gutterBottom>
+          상품 생성
+        </Typography>
+        <form onSubmit={handleCreate}>
+          <TextField
+            label="상품 이름"
+            fullWidth
+            value={name}
+            onChange={handleNameChange}
+            margin="normal"
+          />
+          <TextField
+            label="가격"
+            type="number"
+            fullWidth
+            value={price}
+            onChange={handlePriceChange}
+            margin="normal"
+          />
+          <TextField
+            label="상품 설명"
+            fullWidth
+            multiline
+            rows={4}
+            value={explanation}
+            onChange={handleExplanationChange}
+            margin="normal"
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{
+            marginTop: 6
+          }}>
+            생성
+          </Button>
+        </form>
+      </Container>
+    </>
+  );
 };
 
 export default ProductCreateForm;

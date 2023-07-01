@@ -1,5 +1,7 @@
+// Layout.tsx
 import { useNavigate } from "react-router-dom";
 import { AppBar, Box, Button, Container, Fab, Toolbar, Typography } from "@mui/material"
+import CreateIcon from '@mui/icons-material/Create';
 
 type Props = {
     children: React.ReactNode;
@@ -8,7 +10,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
 
-  const handlePushMainPage = () => navigate('/');
+  const handlePushHomePage = () => navigate('/');
   const handlePushCartPage = () => navigate('/cart');
   const handlePushCreatePage = () => navigate('/create');
 
@@ -19,7 +21,7 @@ const Layout = ({ children }: Props) => {
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography
                         variant="h1" sx={{ fontSize: 26, fontWeight: 'bold', cursor: 'pointer' }}
-                        onClick={handlePushMainPage}
+                        onClick={handlePushHomePage}
                     >
                         온라인 쇼핑몰
                     </Typography>
@@ -42,7 +44,7 @@ const Layout = ({ children }: Props) => {
                   color="primary"
                   onClick={handlePushCreatePage}
                 >
-		              추가하기
+		              <CreateIcon />
                 </Fab>
             </Box>
         </>
