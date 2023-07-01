@@ -1,10 +1,12 @@
 // ProductList.tsx
+import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ProductItem } from ".";
 import { ProductType } from "../../types";
 
 const ProductList = () => {
  const [products, setProducts] = useState<ProductType[]>([]);
+ const [isLoading, setIsLoading] = useState(false);
 
  const handleDelete = (id: string) => {
    fetch(`/product/${id}`, {
@@ -35,10 +37,15 @@ const ProductList = () => {
  };
 
  useEffect(() => {
-   fetch("/product")
-     .then((response) => response.json())
-     .then((data) => setProducts(data.products));
+  setIsLoading(true);
+
+  fetch("/product")
+    .then((response) => response.json())
+    .then((data) => setProducts(data.products))
+    .finally(() => setIsLoading(false))
  }, []);
+
+ if (isLoading) return <CircularProgress />;
 
  return (
    <ul>
