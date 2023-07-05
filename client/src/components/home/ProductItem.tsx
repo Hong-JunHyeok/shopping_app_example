@@ -1,3 +1,4 @@
+// ProductItem.tsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductType } from "../../types";
@@ -17,7 +18,11 @@ function ProductItem({ product, onDelete, onUpdate }: ProductItemProps) {
 
   return (
     <div>
-      <div>{id}</div>
+      {product.thumbnail && (
+        <img 
+          src={product.thumbnail}
+        />
+      )}
       <div>
         <Link to={`/${id}`}>{name}</Link>
       </div>
