@@ -1,7 +1,7 @@
 // App.tsx
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/shared";
-import { HomePage, ProductCreatePage, ProductPage } from "./pages";
+import { HomePage, ProductCreatePage, ProductPage, PurchasePage } from "./pages";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="create" element={<ProductCreatePage />} />
           <Route path="product/:productId" element={<ProductPage />} />
+          <Route path="purchase/:productId" element={<PurchasePage />} />
         </Routes>
       </Layout>
   );
