@@ -1,7 +1,7 @@
 // App.tsx
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/shared";
-import { CartPage, HomePage, ProductCreatePage, ProductPage, PurchasePage } from "./pages";
+import { CartPage, HomePage, NotFoundPage, ProductCreatePage, ProductPage, PurchasePage } from "./pages";
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
           <Route path="cart" element={<CartPage />} />
           <Route path="product/:productId" element={<ProductPage />} />
           <Route path="purchase/:productId" element={<PurchasePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
   );
