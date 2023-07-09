@@ -2,6 +2,7 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductType } from "../types";
 
@@ -10,11 +11,20 @@ function ProductPage() {
   const navigate = useNavigate();
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<ProductType | null>(null);
+  const [cookies, setCookies] = useCookies(['shopping_basket']);
+
+  const shoppingBasketItems = cookies.shopping_basket as ProductType[];
 
   const handlePushPurchasePage = () => {
     if (productId) {
         navigate(`/purchase/${productId}`)
     }
+  }
+
+  const handleShoppingBasketAdd = () => {
+    const nextValue = shoppingBasketItems ? [...shoppingBasketItems, product] : [product];
+
+    setCookies('shopping_basket', nextValue, { path: '/' });
   }
 
   useEffect(() => {
@@ -72,7 +82,7 @@ function ProductPage() {
       </Typography>
 
       <ButtonGroup orientation="vertical" fullWidth>
-          <Button variant="outlined">
+          <Button variant="outlined" onClick={handleShoppingBasketAdd}>
               장바구니 담기
           </Button>
           <Button variant="contained" onClick={handlePushPurchasePage}>
