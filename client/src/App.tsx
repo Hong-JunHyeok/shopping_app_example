@@ -1,14 +1,27 @@
 // App.tsx
 import { Route, Routes } from "react-router-dom";
-import { HomePage, ProductCreatePage, ProductPage } from "./pages";
+import { Layout } from "./components/shared";
+import {
+  CartPage,
+  HomePage,
+  NotFoundPage,
+  ProductCreatePage,
+  ProductPage,
+  PurchasePage,
+} from "./pages";
 
 function App() {
   return (
-    <Routes>
-      <Route index element={<HomePage />} />
-      <Route path="create" element={<ProductCreatePage />} />
-      <Route path="/:productId" element={<ProductPage />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route path="create" element={<ProductCreatePage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="product/:productId" element={<ProductPage />} />
+        <Route path="purchase/:productId" element={<PurchasePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Layout>
   );
 }
 
