@@ -6,7 +6,7 @@ import { ProductType } from "../../types";
 const ProductList = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     fetch(`/product/${id}`, {
       method: "DELETE",
     }).then((response) => {
