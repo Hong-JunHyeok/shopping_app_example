@@ -11,6 +11,7 @@ import { Add, Delete, Remove } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 
 import type { ProductType } from "../../types";
+import { API_SERVER_DOMAIN } from "../../constants";
 
 type Props = {
   cart: ProductType;
@@ -22,7 +23,7 @@ const CartItem = ({ cart }: Props) => {
       {cart.thumbnail && (
         <CardMedia
           sx={{ width: 100 }}
-          image={cart.thumbnail}
+          image={`${API_SERVER_DOMAIN}/${cart.thumbnail}`}
           title={cart.name}
         />
       )}

@@ -17,6 +17,7 @@ import { ProductType } from "../types";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 import { useCookies } from "react-cookie";
+import { API_SERVER_DOMAIN } from "../constants";
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const ProductPage = () => {
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
           {product?.thumbnail && (
             <img
-              src={product?.thumbnail}
+              src={`${API_SERVER_DOMAIN}/${product.thumbnail}`}
               alt={product?.name}
               style={{ width: "100%", maxWidth: 400 }}
             />
