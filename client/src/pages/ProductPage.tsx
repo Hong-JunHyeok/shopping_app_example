@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 type ProductType = {
-  id: number;
+  id: string;
   name: string;
   explanation: string;
   price: number;
