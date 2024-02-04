@@ -12,6 +12,7 @@ import {
 import { PurchaseForm } from "../components/purchase";
 
 import type { ProductType } from "../types";
+import { getProduct } from "../utils/api";
 
 type ParamsType = {
   productId: string;
@@ -22,9 +23,11 @@ const PurchasePage = () => {
   const [product, setProduct] = useState<ProductType | null>(null);
 
   useEffect(() => {
-    fetch(`/product/${productId}`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data.product));
+    if (productId) {
+      getProduct(productId).then((response) =>
+        setProduct(response.data.product)
+      );
+    }
   }, [productId]);
 
   if (!product) {

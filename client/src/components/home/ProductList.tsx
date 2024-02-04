@@ -1,27 +1,19 @@
 // ProductList.tsx
 import { CircularProgress, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
 import { ProductItem } from ".";
-import { ProductType } from "../../types";
+import useAsync from "../../hooks/useAsync";
+import { NotFoundPage } from "../../pages";
+import { getProducts } from "../../utils/api";
 
 const ProductList = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { loading, data } = useAsync(getProducts);
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    fetch("/product")
-      .then((response) => response.json())
-      .then((data) => setProducts(data.products))
-      .finally(() => setIsLoading(false));
-  }, []);
-
-  if (isLoading) return <CircularProgress />;
+  if (loading) return <CircularProgress />;
+  if (!data) return <NotFoundPage />;
 
   return (
     <Grid container spacing={3}>
-      {products.map((product) => (
+      {data.data.products.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
     </Grid>

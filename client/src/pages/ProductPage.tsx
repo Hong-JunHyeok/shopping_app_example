@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -10,30 +11,38 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProductType } from "../types";
 
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
-import { useCookies } from "react-cookie";
+import { useCart } from "../hooks";
+import { deleteProduct, getProduct } from "../utils/api";
+import useAsync from "../hooks/useAsync";
+import { NotFoundPage } from ".";
 
 const ProductPage = () => {
   const navigate = useNavigate();
   const { productId } = useParams<{ productId: string }>();
-  const [cookies, setCookies] = useCookies(["cart"]);
+  const { addCarts } = useCart();
 
-  const [product, setProduct] = useState<ProductType | null>(null);
+  const { loading: getProductLoading, data } = useAsync(() =>
+    getProduct(productId!)
+  );
+
+  const { request: deleteProductRequest, loading: deleteProductLoading } =
+    useAsync(() => deleteProduct(productId!), {
+      initialRequest: false,
+    });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-  const cartItems = cookies.cart as ProductType[];
-
   const handleAddCard = () => {
-    const nextValue = cartItems ? [...cartItems, product] : [product];
-
-    setCookies("cart", nextValue, { path: "/" });
-    setIsModalOpen(true);
+    if (product) {
+      addCarts(product.id);
+      setIsModalOpen(true);
+    }
   };
 
   const handlePushPurchasePage = () => {
@@ -42,19 +51,24 @@ const ProductPage = () => {
     }
   };
 
+  const handlePushHomePage = () => {
+    navigate(`/`);
+  };
+
   const handlePushCartPage = () => {
     navigate(`/cart`);
   };
 
-  useEffect(() => {
-    fetch(`/product/${productId}`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data.product));
-  }, [productId]);
+  const handleDeleteProduct = async () => {
+    setIsDeleteModal(false);
+    await deleteProductRequest();
+    handlePushHomePage();
+  };
 
-  if (!productId) {
-    return <>잘못된 페이지입니다.</>;
-  }
+  if (!productId || !data) return <NotFoundPage />;
+  if (getProductLoading || deleteProductLoading) return <CircularProgress />;
+
+  const product = data.data.product;
 
   return (
     <>
@@ -126,7 +140,9 @@ const ProductPage = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsDeleteModal(false)}>아니요</Button>
-          <Button autoFocus>네</Button>
+          <Button autoFocus onClick={handleDeleteProduct}>
+            네
+          </Button>
         </DialogActions>
       </Dialog>
 

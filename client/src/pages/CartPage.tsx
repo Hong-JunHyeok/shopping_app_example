@@ -1,3 +1,4 @@
+// CartPage.tsx
 import {
   Box,
   Button,
@@ -12,16 +13,18 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../components/cart";
-import { ProductType } from "../types";
+import { useCart } from "../hooks";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const [cookies] = useCookies(["cart"]);
+  const { carts } = useCart();
 
-  const cartItems = (cookies.cart as ProductType[]) || null;
+  const totalPrice = carts.reduce(
+    (prev, cur) => prev + cur.price * cur.count,
+    0
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -43,12 +46,12 @@ const CartPage = () => {
             <Typography variant="h4" sx={{ marginBottom: 2 }}>
               장바구니
             </Typography>
-            {!cartItems || cartItems.length === 0 ? (
+            {carts.length === 0 ? (
               <Typography variant="body1">
                 장바구니에 담긴 상품이 없습니다.
               </Typography>
             ) : (
-              cartItems?.map((cart) => <CartItem key={cart.id} cart={cart} />)
+              carts.map((cart) => <CartItem key={cart.id} cart={cart} />)
             )}
           </Grid>
 
@@ -59,7 +62,7 @@ const CartPage = () => {
             <Box sx={{ position: "sticky", top: 20 }}>
               <Card sx={{ padding: 2 }}>
                 <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>
-                  총 상품 가격: 0원
+                  총 상품 가격: {totalPrice}원
                 </Typography>
                 <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>
                   배송비: 평생 무료

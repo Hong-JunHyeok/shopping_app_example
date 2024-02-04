@@ -2,13 +2,16 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { ThumbnailUploader } from ".";
-import { ProductType } from "../../types";
+import useAsync from "../../hooks/useAsync";
+import { createProduct, modifyThumbnail } from "../../utils/api";
 
 const ProductCreateForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [explanation, setExplanation] = useState("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [createdProductId, setCreatedProductId] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -24,38 +27,32 @@ const ProductCreateForm = () => {
     setExplanation(event.target.value);
   };
 
-  const uploadThumbnailRequest = (productId: number, thumbnail: File) => {
-    const formData = new FormData();
-    formData.append("thumbnail", thumbnail);
-    return fetch(`/product/thumbnail/${productId}`, {
-      method: "PATCH",
-      body: formData,
-    });
-  };
+  const { request: createProductRequest } = useAsync(createProduct, {
+    initialRequest: false,
+  });
 
-  const createProductRequest = (newProduct: Omit<ProductType, "id">) => {
-    return fetch("/product", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    });
-  };
+  const { request: thumbnailUploadRequest } = useAsync(modifyThumbnail, {
+    initialRequest: false,
+  });
 
   const handleCreateProduct = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await createProductRequest({
+    const createProductResponse = await createProductRequest({
       name,
       explanation,
       price,
     });
-    const data = await response.json();
 
     if (thumbnail) {
-      await uploadThumbnailRequest(data.product.id, thumbnail);
+      await thumbnailUploadRequest(
+        createProductResponse.data.product.id,
+        thumbnail
+      );
     }
+
+    setCreatedProductId(createProductResponse.data.product.id);
+    setIsModalOpen(true);
   };
 
   return (
