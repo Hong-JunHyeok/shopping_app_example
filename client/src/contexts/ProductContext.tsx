@@ -1,3 +1,4 @@
+// ** API를 연동하여서 더이상 사용되지 않는 파일입니다 **
 // ProductContext.tsx
 import { createContext, useContext, useState } from "react";
 
