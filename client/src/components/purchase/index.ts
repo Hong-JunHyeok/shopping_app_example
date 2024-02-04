@@ -1,1 +1,1 @@
-export { default as PurchaseForm } from './PurchaseForm';
+export { default as PurchaseForm } from "./PurchaseForm";

@@ -1,77 +1,59 @@
-import { Button, CardMedia, Grid, Typography } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { useMemo, useRef } from "react";
+import { Button, Card, CardMedia } from "@mui/material";
+import { ChangeEvent, useRef } from "react";
 
-type ThumbnailUploaderProps = {
+type Props = {
   value: File | null;
-  onChange: (file: File | null) => void;
+  onChange: (value: File | null) => void;
 };
 
-const ThumbnailUploader = ({
-  value,
-  onChange,
-}: ThumbnailUploaderProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const ThumbnailUploader = ({ value, onChange }: Props) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    onChange(file || null);
+  const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) onChange(event.target.files[0]);
   };
 
-  const handleClick = () => {
-    inputRef.current?.click();
-  };
-
-  const tempImageURL = useMemo(() => {
-    if (value) {
-      return URL.createObjectURL(value);
+  const handleButtonClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
     }
-  }, [value]);
+  };
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Typography variant="h6">상품 이미지</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          id="thumbnail-upload-input"
-          style={{ display: "none" }}
-        />
-        <label htmlFor="thumbnail-upload-input">
+    <>
+      <input
+        type="file"
+        multiple={false}
+        onChange={handleChangeInput}
+        hidden
+        ref={inputRef}
+      />
+      <Card
+        sx={{
+          padding: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        {value && (
           <CardMedia
+            component="img"
+            alt={value.name}
+            height={200}
             sx={{
-              height: "200px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#e0e0e0",
-              overflow: "hidden",
+              objectFit: "contain",
+              marginBottom: 2,
             }}
-            image={tempImageURL}
-          >
-            {value ? null : (
-              <Typography variant="caption" color="text.secondary">
-                상품 이미지 없음
-              </Typography>
-            )}
-          </CardMedia>
-
-          <Button
-            fullWidth
-            variant="outlined"
-            startIcon={<CloudUploadIcon />}
-            onClick={handleClick}
-          >
-            이미지 선택
-          </Button>
-        </label>
-      </Grid>
-    </Grid>
+            src={URL.createObjectURL(value)}
+          />
+        )}
+        <Button variant="contained" onClick={handleButtonClick}>
+          썸네일 업로드
+        </Button>
+      </Card>
+    </>
   );
 };
 

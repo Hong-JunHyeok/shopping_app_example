@@ -1,3 +1,4 @@
+// src/pages/NotFoundPage.tsx
 import { Box, Typography } from "@mui/material";
 
 const NotFoundPage = () => {
