@@ -10,8 +10,6 @@ const ProductCreateForm = () => {
   const [price, setPrice] = useState(0);
   const [explanation, setExplanation] = useState("");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [createdProductId, setCreatedProductId] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -50,9 +48,6 @@ const ProductCreateForm = () => {
         thumbnail
       );
     }
-
-    setCreatedProductId(createProductResponse.data.product.id);
-    setIsModalOpen(true);
   };
 
   return (
