@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { API_SERVER_DOMAIN } from "../../constants";
 
 import { ProductType } from "../../types";
 
@@ -31,7 +32,7 @@ function ProductItem({ product }: ProductItemProps) {
         {product.thumbnail && (
           <CardMedia
             sx={{ height: 140 }}
-            image={product.thumbnail}
+            image={`${API_SERVER_DOMAIN}/${product.thumbnail}`}
             title={product.name}
           />
         )}

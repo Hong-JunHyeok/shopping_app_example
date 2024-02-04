@@ -20,6 +20,7 @@ import { useCart } from "../hooks";
 import { deleteProduct, getProduct } from "../utils/api";
 import useAsync from "../hooks/useAsync";
 import { NotFoundPage } from ".";
+import { API_SERVER_DOMAIN } from "../constants";
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const ProductPage = () => {
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
           {product?.thumbnail && (
             <img
-              src={product?.thumbnail}
+              src={`${API_SERVER_DOMAIN}/${product.thumbnail}`}
               alt={product?.name}
               style={{ width: "100%", maxWidth: 400 }}
             />

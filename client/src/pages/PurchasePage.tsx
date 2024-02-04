@@ -13,6 +13,7 @@ import { PurchaseForm } from "../components/purchase";
 
 import type { ProductType } from "../types";
 import { getProduct } from "../utils/api";
+import { API_SERVER_DOMAIN } from "../constants";
 
 type ParamsType = {
   productId: string;
@@ -45,7 +46,7 @@ const PurchasePage = () => {
             {product?.thumbnail && (
               <CardMedia
                 sx={{ width: 100, height: 100, marginRight: 2 }}
-                image={product?.thumbnail}
+                image={`${API_SERVER_DOMAIN}/${product?.thumbnail}`}
                 title="Product"
               />
             )}
