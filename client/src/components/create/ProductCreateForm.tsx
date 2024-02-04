@@ -39,7 +39,7 @@ const ProductCreateForm = () => {
     setExplanation(event.target.value);
   };
 
-  const uploadThumbnailRequest = (productId: number, thumbnail: File) => {
+  const uploadThumbnailRequest = (productId: string, thumbnail: File) => {
     const formData = new FormData();
     formData.append("thumbnail", thumbnail);
     return fetch(`/product/thumbnail/${productId}`, {
