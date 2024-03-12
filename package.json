@@ -1,0 +1,14 @@
+{
+  "name": "shopping_app_example",
+  "version": "1.0.0",
+  "description": "쇼핑몰 앱의 루트 디렉터리",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
+  "scripts": {
+    "run:client": "cd client && yarn install && yarn start",
+    "run:server": "cd server && yarn install && yarn start",
+    "run:both": "yarn install && concurrently \"yarn run:server\" \"yarn run:client\""
+  }
+}
