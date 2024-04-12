@@ -12,12 +12,15 @@ import { grey } from "@mui/material/colors";
 
 import type { ProductType } from "../../types";
 import { API_SERVER_DOMAIN } from "../../constants";
+import { useCart } from "../../hooks";
 
 type Props = {
-  cart: ProductType;
+  cart: ProductType & { count: number };
 };
 
 const CartItem = ({ cart }: Props) => {
+  const { changeCount } = useCart();
+
   return (
     <Card sx={{ display: "flex", marginBottom: 2 }}>
       {cart.thumbnail && (
@@ -36,11 +39,11 @@ const CartItem = ({ cart }: Props) => {
 
         <Grid container justifyContent="space-between">
           <Grid item>
-            <IconButton>
+            <IconButton onClick={() => changeCount(cart.id, "decrease")}>
               <Remove />
             </IconButton>
-            {0}
-            <IconButton>
+            {cart.count}
+            <IconButton onClick={() => changeCount(cart.id, "increase")}>
               <Add />
             </IconButton>
           </Grid>

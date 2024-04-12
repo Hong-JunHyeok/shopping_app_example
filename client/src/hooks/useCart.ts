@@ -25,6 +25,32 @@ const useCart = () => {
     });
   };
 
+  const changeCount = (productId: string, mode: "increase" | "decrease") => {
+    const index = productIds.indexOf(productId);
+    if (index === -1) {
+      return;
+    }
+
+    if (mode === "decrease") {
+      const tempArr = [...productIds];
+      tempArr.splice(index, 1);
+
+      if (!tempArr.includes(productId)) {
+        return;
+      }
+
+      setCookies(COOKIE_KEY, tempArr, {
+        path: "/",
+      });
+    }
+
+    if (mode === "increase") {
+      setCookies(COOKIE_KEY, [...productIds, productId], {
+        path: "/",
+      });
+    }
+  };
+
   useEffect(() => {
     if (productIds && productIds.length) {
       const requestList: Array<Promise<any>> = [];
@@ -49,6 +75,7 @@ const useCart = () => {
   return {
     carts,
     addCarts,
+    changeCount,
   };
 };
 

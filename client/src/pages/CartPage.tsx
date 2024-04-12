@@ -68,7 +68,7 @@ const CartPage = () => {
                   배송비: 평생 무료
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                  총 결제 금액: 0원
+                  총 결제 금액: {totalPrice}원
                 </Typography>
                 <Button
                   variant="contained"
